@@ -53,7 +53,7 @@ if api_key:
 
         for uploaded_file in uploaded_files:
             temppdf=f"./temp.pdf"
-           with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
                
                 tmpfile.write(uploaded_file.getvalue())
                 tmpfile.flush()  # ensure file is fully written to disk
