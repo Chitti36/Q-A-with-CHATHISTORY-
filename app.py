@@ -16,10 +16,18 @@ import tempfile
 from dotenv import load_dotenv
 load_dotenv()
 os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
+import torch
+
+# Optional: explicitly set default device
+torch_device = "cpu"
+
+from langchain.embeddings import HuggingFaceEmbeddings
+
 embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2",  # or any model you want
-    model_kwargs={"device": "cpu"}  # ✅ this avoids GPU error
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    model_kwargs={"device": torch_device}
 )
+
 
 
 
