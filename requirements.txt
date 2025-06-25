@@ -1,27 +1,32 @@
-# Streamlit
-streamlit==1.33.0
-
-# LangChain
-langchain==0.1.16
-langchain-core==0.1.41
-langchain-community==0.0.36
-langchain-chroma==0.0.13
-
-# HuggingFace & Torch
-sentence-transformers==2.2.2
-transformers==4.40.1
-torch==2.1.0  # ✅ Avoid meta tensor errors
-accelerate==0.27.2
-
-# Vector store
-faiss-cpu==1.7.4
-
-# LLM integrations (optional)
-groq==0.5.0
-
-# PDFs
-pypdf==3.17.1
-
-# Other utilities
-tqdm
-numpy
+langchain-openai
+langchain
+python-dotenv
+langchain_community
+langchain_core
+streamlit
+langchain_groq
+langchain_ollama
+langchain-groq
+pypdf
+ipykernel
+bs4
+arxiv
+pymupdf
+wikipedia
+langchain-text-splitters
+chromadb
+sentence_transformers
+langchain_huggingface
+faiss-cpu
+langchain_chroma
+duckdb
+pandas
+openai
+duckduckgo-search
+mysql-connector-python
+SQLAlchemy
+validators==0.28.1
+youtube_transcript_api
+unstructured
+pytube
+numexpr
