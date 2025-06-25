@@ -1,29 +1,27 @@
-# ✅ Python version for compatibility
-python_version == 3.10
-
-# ✅ Core Streamlit
+# Force compatible environment
 streamlit==1.33.0
 
-# ✅ LangChain
+# LangChain stack
 langchain==0.1.16
 langchain-core==0.1.41
 langchain-community==0.0.36
-langchain-chroma==0.0.13  # If using Chroma DB
+langchain-chroma==0.0.13
 
-# ✅ HuggingFace Embeddings
+# HuggingFace & Transformers stack
 sentence-transformers==2.2.2
 transformers==4.40.1
-torch==2.1.0  # ✅ Compatible with sentence-transformers
+torch==2.1.0  # ✅ Required for avoiding meta tensor errors
+accelerate==0.27.2  # helps handle device placement properly
 
-# ✅ FAISS (if using for retrieval)
+# Optional: if you’re using FAISS
 faiss-cpu==1.7.4
 
-# ✅ Groq / LLMs (optional)
-groq==0.5.0  # If you're using Groq's LLMs
-
-# ✅ PDF handling (if uploading PDFs)
+# PDF parsing
 pypdf==3.17.1
 
-# ✅ Other useful packages
+# For LLMs like Groq
+groq==0.5.0
+
+# Utilities
 tqdm
 numpy
