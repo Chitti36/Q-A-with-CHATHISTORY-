@@ -8,12 +8,11 @@ from langchain_core.prompts import ChatMessagePromptTemplate,MessagesPlaceholder
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
-import os
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-
+import os
+import tempfile
 from dotenv import load_dotenv
 load_dotenv()
 os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
@@ -54,20 +53,20 @@ if api_key:
 
         for uploaded_file in uploaded_files:
             temppdf=f"./temp.pdf"
-            with open(temppdf,"wb") as file:
-                file.write(uploaded_file.getvalue())
-                file_name=uploaded_file.name
-
-            loader=PyPDFLoader(temppdf)
-            docs=loader.load()
-            documents.extend(docs)
-
+           with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
+               
+                tmpfile.write(uploaded_file.getvalue())
+                tmpfile.flush()  # ensure file is fully written to disk
+    
+                loader = PyPDFLoader(tmpfile.name)
+                docs = loader.load()
+                documents.extend(docs)
 
     #split and create embedding for the documents
 
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         splits=text_splitter.split_documents(documents)
-        vectorstore=FAISS.from_documents(documents=splits,embedding=embeddings)
+        vectorstore=FAISS.from_documents(splits,embeddings)
         retriever=vectorstore.as_retriever()
 
 
