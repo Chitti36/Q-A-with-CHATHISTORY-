@@ -16,7 +16,10 @@ import tempfile
 from dotenv import load_dotenv
 load_dotenv()
 os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
-embeddings=HuggingFaceEmbeddings(model="all-MiniLM-L6-v2")
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2",  # or any model you want
+    model_kwargs={"device": "cpu"}  # ✅ this avoids GPU error
+)
 
 
 
