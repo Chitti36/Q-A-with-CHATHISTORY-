@@ -1,27 +1,27 @@
-# Force compatible environment
+# Streamlit
 streamlit==1.33.0
 
-# LangChain stack
+# LangChain
 langchain==0.1.16
 langchain-core==0.1.41
 langchain-community==0.0.36
 langchain-chroma==0.0.13
 
-# HuggingFace & Transformers stack
+# HuggingFace & Torch
 sentence-transformers==2.2.2
 transformers==4.40.1
-torch==2.1.0  # ✅ Required for avoiding meta tensor errors
-accelerate==0.27.2  # helps handle device placement properly
+torch==2.1.0  # ✅ Avoid meta tensor errors
+accelerate==0.27.2
 
-# Optional: if you’re using FAISS
+# Vector store
 faiss-cpu==1.7.4
 
-# PDF parsing
-pypdf==3.17.1
-
-# For LLMs like Groq
+# LLM integrations (optional)
 groq==0.5.0
 
-# Utilities
+# PDFs
+pypdf==3.17.1
+
+# Other utilities
 tqdm
 numpy
