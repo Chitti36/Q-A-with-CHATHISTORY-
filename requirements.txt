@@ -1,32 +1,29 @@
-langchain-openai
-langchain
-python-dotenv
-langchain_community
-langchain_core
-streamlit
-langchain_groq
-langchain_ollama
-langchain-groq
-pypdf
-ipykernel
-bs4
-arxiv
-pymupdf
-wikipedia
-langchain-text-splitters
-chromadb
-sentence_transformers
-langchain_huggingface
-faiss-cpu
-langchain_chroma
-duckdb
-pandas
-openai
-duckduckgo-search
-mysql-connector-python
-SQLAlchemy
-validators==0.28.1
-youtube_transcript_api
-unstructured
-pytube
-numexpr
+# ✅ Python version for compatibility
+python_version == 3.10
+
+# ✅ Core Streamlit
+streamlit==1.33.0
+
+# ✅ LangChain
+langchain==0.1.16
+langchain-core==0.1.41
+langchain-community==0.0.36
+langchain-chroma==0.0.13  # If using Chroma DB
+
+# ✅ HuggingFace Embeddings
+sentence-transformers==2.2.2
+transformers==4.40.1
+torch==2.1.0  # ✅ Compatible with sentence-transformers
+
+# ✅ FAISS (if using for retrieval)
+faiss-cpu==1.7.4
+
+# ✅ Groq / LLMs (optional)
+groq==0.5.0  # If you're using Groq's LLMs
+
+# ✅ PDF handling (if uploading PDFs)
+pypdf==3.17.1
+
+# ✅ Other useful packages
+tqdm
+numpy
