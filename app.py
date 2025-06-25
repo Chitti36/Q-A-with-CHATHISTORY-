@@ -1,37 +1,27 @@
 import streamlit as st
 from langchain.chains import create_history_aware_retriever,create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_community.vectorstores import FAISS
+from langchain_chroma import Chroma
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatMessagePromptTemplate,MessagesPlaceholder
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
+import os
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-import os
-import tempfile
+
+
 from dotenv import load_dotenv
 load_dotenv()
 os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
-import torch
-torch.set_default_device("cpu")  # Optional but safe
-
-
-from langchain.embeddings import HuggingFaceEmbeddings
-
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2",
-    model_kwargs={"device": "cpu"}  # ✅ Force CPU to avoid meta device issues
-)
+embeddings=HuggingFaceEmbeddings(model="all-MiniLM-L6-v2")
 
 
 
-
-
-## set up streamLIT
+## set up streamLITstra
 
 st.title("Converstional RAG with PDF uploads and chat History")
 
@@ -64,20 +54,20 @@ if api_key:
 
         for uploaded_file in uploaded_files:
             temppdf=f"./temp.pdf"
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
-               
-                tmpfile.write(uploaded_file.getvalue())
-                tmpfile.flush()  # ensure file is fully written to disk
-    
-                loader = PyPDFLoader(tmpfile.name)
-                docs = loader.load()
-                documents.extend(docs)
+            with open(temppdf,"wb") as file:
+                file.write(uploaded_file.getvalue())
+                file_name=uploaded_file.name
+
+            loader=PyPDFLoader(temppdf)
+            docs=loader.load()
+            documents.extend(docs)
+
 
     #split and create embedding for the documents
 
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         splits=text_splitter.split_documents(documents)
-        vectorstore=FAISS.from_documents(splits,embeddings)
+        vectorstore=Chroma.from_documents(documents=splits,embedding=embeddings)
         retriever=vectorstore.as_retriever()
 
 
